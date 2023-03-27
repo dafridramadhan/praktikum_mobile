@@ -14,7 +14,7 @@ class DoneCulinaryListTugas extends StatelessWidget {
         Provider.of<DoneCulinaryProvider> (
         context,
         listen: false,
-      ).doneCulinaryListProvider;
+      ).doneCulinaryList;
 
 
     return Scaffold(

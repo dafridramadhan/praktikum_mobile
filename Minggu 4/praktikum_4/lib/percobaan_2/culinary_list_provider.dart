@@ -6,14 +6,9 @@ import 'package:praktikum_4/percobaan_2/list_item_provider.dart';
 import 'package:praktikum_4/provider/done_culinary_provider.dart';
 
 class CulinaryListProvider extends StatefulWidget {
-  final List<Culinary> doneCulinaryList;
-
-  const CulinaryListProvider({
-    Key? key,
-    required this.doneCulinaryList
-  }) : super(key: key);
+  const CulinaryListProvider({Key? key}) : super(key: key);
   @override
-  _CulinaryListProviderState createState() => _CulinaryListProviderState (doneCulinaryList);
+  _CulinaryListProviderState createState() => _CulinaryListProviderState();
 }
 
 class _CulinaryListProviderState extends State<CulinaryListProvider> {
@@ -138,46 +133,36 @@ class _CulinaryListProviderState extends State<CulinaryListProvider> {
       ],
     ),
   ];
-  final List<Culinary> doneCulinaryListProvider;
+  // final List<Culinary> doneCulinaryListProvider;
 
-  _CulinaryListProviderState(this.doneCulinaryListProvider);
+  // _CulinaryListProviderState(this.doneCulinaryListProvider);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Culinary'),
-      ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          final Culinary food = culinaryList[index];
-          return InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return DetailScreenProvider(food: food);
-              }));
-            },
-            child: Consumer<DoneCulinaryProvider>(
-              builder: (context, DoneCulinaryProvider data, widget){
-                return ListItem(
-                  food: food,
-                  isDone: doneCulinaryListProvider.contains(food),
-                  onCheckboxClick: (bool? value) {
-                    setState(() {
-                      if(value != null) {
-                        value
-                          ? doneCulinaryListProvider.add(food)
-                          : doneCulinaryListProvider.remove(food);
-                      }
-                    });
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        final Culinary food = culinaryList[index];
+        return InkWell(onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DetailScreenProvider(food: food);
+          }));
+        }, child: Consumer<DoneCulinaryProvider>(
+            builder: (context, DoneCulinaryProvider data, widget) {
+          return ListItem(
+              food: food,
+              isDone: data.doneCulinaryList.contains(food),
+              onCheckboxClick: (bool? value) {
+                setState(() {
+                  if (value != null) {
+                    value
+                        ? data.doneCulinaryList.add(food)
+                        : data.doneCulinaryList.remove(food);
                   }
-                );
-              }
-            )
-          );
-        },
-        itemCount: culinaryList.length,
-      ),
+                });
+              });
+        }));
+      },
+      itemCount: culinaryList.length,
     );
   }
 }
