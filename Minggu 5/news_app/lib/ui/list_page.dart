@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:news_app/article.dart';
-import 'package:news_app/detail_page.dart';
+import 'package:news_app/models/article.dart';
+import 'package:news_app/ui/detail_page.dart';
 
 class NewsListPage extends StatelessWidget {
   static const routeName = '/article_list';
